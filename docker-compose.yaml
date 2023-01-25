@@ -36,6 +36,35 @@ services:
     volumes:
       - ./fakemail:/output
 
+  kie_sandbox:
+    container_name: kie_sandbox
+    image: quay.io/kie-tools/kie-sandbox-image:latest
+    ports:
+      - 9090:8080
+    environment:      
+       KIE_SANDBOX_EXTENDED_SERVICES_URL: http://kie_extended_services:21345
+       KIE_SANDBOX_GIT_CORS_PROXY_URL: https://cors:7081
+    depends_on:
+      - kie_extended_services
+      - cors
+
+
+  kie_extended_services:
+    container_name: kie_extended_services
+    image: quay.io/kie-tools/kie-sandbox-extended-services-image
+    ports:
+      - 21345:21345
+    
+  
+  cors:
+     image: quay.io/kie-tools/git-cors-proxy-image
+     container_name: cors
+     ports:
+      - 7081:8080
+     
+
+
+
 volumes:
   postgres-data:
   pgadmin-data:
