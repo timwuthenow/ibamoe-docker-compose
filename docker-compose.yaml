@@ -16,17 +16,7 @@ services:
        - ./db/postgresql-jbpm-schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
 #    volumes:
 #      - local_pgdata:/var/lib/postgresql/data
-  pgadmin:
-    image: dpage/pgadmin4
-    container_name: pgadmin4_container
-    restart: always
-    ports:
-      - "5050:80"
-    environment:
-      PGADMIN_DEFAULT_EMAIL: admin@email.com
-      PGADMIN_DEFAULT_PASSWORD: admin
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
+
   ibamoe-8-bc-persistence:
     container_name: bamoe
     image: ibamoe-8-bc-persistence:latest
