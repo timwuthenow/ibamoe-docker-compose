@@ -42,12 +42,82 @@ services:
     ports:
       - 9090:8080
     environment:      
-       KIE_SANDBOX_EXTENDED_SERVICES_URL: http://kie_extended_services:21345
-       KIE_SANDBOX_GIT_CORS_PROXY_URL: https://cors:7081
+       KIE_SANDBOX_EXTENDED_SERVICES_URL: http://localhost:21345
+       KIE_SANDBOX_GIT_CORS_PROXY_URL: http://localhost:7081
+       KIE_SANDBOX_AUTH_PROVIDERS: > 
+           [
+            {
+                "id": "github_dot_com",
+                "domain": "github.com",
+                "supportedGitRemoteDomains": [
+                    "github.com",
+                    "gist.github.com"
+                ],
+                "type": "github",
+                "name": "GitHub",
+                "enabled": true,
+                "iconPath": "",
+                "group": "git"
+            },
+            {
+                "id": "gitlab_dot_com",
+                "domain": "gitlab.com",
+                "supportedGitRemoteDomains": [
+                    "gitlab.com"
+                ],
+                "type": "gitlab",
+                "name": "GitLab",
+                "enabled": false,
+                "iconPath": "images/gitlab-logo.svg",
+                "group": "git"
+            },
+            {
+                "id": "bitbucket_dot_com",
+                "domain": "bitbucket.com",
+                "supportedGitRemoteDomains": [
+                    "bitbucket.com"
+                ],
+                "type": "bitbucket",
+                "name": "Bitbucket",
+                "enabled": false,
+                "iconPath": "images/bitbucket-logo.svg",
+                "group": "git"
+            },
+            {
+                "enabled": true,
+                "id": "openshift",
+                "type": "openshift",
+                "name": "OpenShift",
+                "iconPath": "images/openshift-logo.svg",
+                "group": "cloud"
+            },
+            {
+                "enabled": false,
+                "id": "kubernetes",
+                "type": "openshift",
+                "name": "Kubernetes",
+                "iconPath": "images/kubernetes-logo.svg",
+                "group": "cloud"
+            }
+            ,
+            {
+                "id": "GitHub_at_IBM",
+                "domain": "github.ibm.com",
+                "supportedGitRemoteDomains": [
+                    "github.ibm.com",
+                    "gist.github.ibm.com"
+                ],
+                "type": "github",
+                "name": "GitHub @ IBM",
+                "enabled": true,
+                "group": "git"
+            }
+           ]
+
     depends_on:
       - kie_extended_services
       - cors
-
+    
 
   kie_extended_services:
     container_name: kie_extended_services
@@ -68,68 +138,3 @@ services:
 volumes:
   postgres-data:
   pgadmin-data:
-
-
-
-# version: '3.11'
-
-# services:
-#   postgresql:
-#     image: postgres:13.2
-#     container_name: pg-docker
-#     ports:
-#       - "5432:5432"
-#     environment:
-#       POSTGRES_USER: jbpm
-#       POSTGRES_PASSWORD: jbpm
-#       PGDATA: /data/postgres
-#     volumes:
-#       - ./postgres-data:/var/lib/postgresql/data
-# #       # copy the sql script to create tables
-#       - ./db/postgresql-jbpm-schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
-# #    command: postgres -c config_file=/etc/postgresql/postgresql.conf
-#     restart: always
-
-
-
-# version: '3.11'
-
-
-# services:
-#   postgres:
-#     container_name: local_pgdb
-#     image: postgres:13.2
-#     environment:
-#       POSTGRES_USER: jbpm
-#       POSTGRES_PASSWORD: jbpm
-#       PGDATA: /data/postgres
-#     volumes:
-#       - ./postgres-data:/var/lib/postgresql/data
-#       # copy the sql script to create tables
-#       - ./db/postgresql-jbpm-schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
-#     ports:
-#       - "5432:5432"
-
-
-# volumes:
-#   postgres-db:
-#     driver: local
-
-  # kie-server:
-  #   container_name: kie-server
-  #   image: jboss/jbpm-workbench-showcase:latest
-  #   network_mode: host
-  #   ports:
-  #     - 8080:8080
-  #     - 8001:8001
-  #   depends_on:
-  #     - postgres
-  #   environment:
-  #     # KIE Workbench environment variables
-  #     # Neccessary to connect the KIE server to the KIE workbench
-  #     - KIE_SERVER_ID=mykieserver
-  #     - KIE_SERVER_DB_HOST=postgresdb
-  #     - KIE_SERVER_DB_NAME=jbpm
-  #     - KIE_SERVER_DB_USER=jbpm
-  #     - KIE_SERVER_DB_PASSWORD=jbpm
-
