@@ -19,7 +19,7 @@ services:
 
   ibamoe-8-bc-persistence:
     container_name: bamoe
-    image: ibamoe-8-bc-persistence:latest
+    image: timwuthenowibm/ibamoe-8-bc-persistence:1.0
     ports:
       - "8080:8080"
       - "8001:8001"
