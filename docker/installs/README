@@ -18,15 +18,4 @@ To do the build your own verison:
 1. After the updates have been completed to the files, run from the `docker` directory run `init-docker.sh` which will run through the process of building a customized `Dockerfile` and then build the associative container as ibamoe-8-bc-persistence. If you want to add tags and other pieces to it, you can do so using your preferred methods.
 1. Now that the container is built, you can go back to this parent folder and run `docker compose up` and the new environment will be built.
 
-
-
-After you put the downloaded files in docker/installs, you can build the Docker container for `ibamoe-8-bc-persistence` by navigating to `cd docker` and then running the script `./init-docker.sh`. After this container is built, navigate up a directory `cd ..` and run `docker compose up` to bring up:
-
-``` text
-IBM Business Automation Manager Open Edition 8.0.1
-PostgreSQL Database with the SQL to create it
-a fake email server - not required
-KIE Sandbox - the new method for editing DMN models and BPMN models
-KIE Extended Services to run DMN models as you make modifications in KIE Sandbox
-GitHub CORS Proxy image to be able to do local GitHub communication with GitHub through CORS
-```
+After you put the downloaded files in docker/installs, you can build the Docker container for `ibamoe-8-bc-persistence` by navigating to `cd docker` and then running the script `./init-docker.sh`.
