@@ -1,6 +1,6 @@
 # Build your own version of the Environment
 
-If you go the build your own container route, you will need to provide the JDBC jar for PostgreSQL that you can use and update the `Dockerfile` found in `docker/support/docker/Dockerfile` on *line 58*. This file, as well as the IBAMOE downloads will need to be added to the `docker/installs` path. 
+If you go the build your own container route, you will need to provide the JDBC jar for PostgreSQL that you can use and update the `Dockerfile` found in `docker/support/docker/Dockerfile` on *line 58*. This file, as well as the IBAMOE downloads will need to be added to the `docker/installs` path.
 
 To do the build your own verison:
 
