@@ -97,7 +97,8 @@ fi
 echo Docker build finished.
 echo
 
-rm Dockerfile
+# Clean up Dockerfile if desired
+#rm Dockerfile
 
 echo
 echo "=================================================================================="
