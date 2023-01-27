@@ -55,7 +55,10 @@ RUN rm -rf /opt/jboss/jboss-eap-7.4/standalone/configuration/standalone_xml_hist
 # RUN mkdir -p /opt/jboss/jboss-eap-7.4/modules/org
 # RUN mkdir -p /opt/jboss/jboss-eap-7.4/modules/org/postgresql
 # RUN mkdir -p /opt/jboss/jboss-eap-7.4/modules/org/postgresql/main
+
+####UPDATE THIS LINE FOR CHANGING THE DATA SOURCE JDBC PROVIDER TO APPROPRIATE JAR#####
 RUN mv /opt/jboss/postgresql-42.5.1.jar /opt/jboss/jboss-eap-7.4/standalone/deployments
+####UPDATE THIS LINE FOR CHANGING THE DATA SOURCE JDBC PROVIDER TO APPRORPIATE JAR#####
 RUN mkdir -p /opt/jboss/.m2/repository
 RUN mv /opt/jboss/settings.xml /opt/jboss/.m2/settings.xml
 
