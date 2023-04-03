@@ -8,27 +8,26 @@ Running the `docker-compose.yaml` as is will build the system as a sample enviro
 
 1. Clone this repository
 
-  ```shell
-  git clone https://github.com/timwuthenow/ibamoe-docker-compose.git
-  ```
+    ~~~shell
+    git clone https://github.com/timwuthenow/ibamoe-docker-compose.git
+    ~~~
 
 1. Bring up the environment through a docker compose up command
 
-  ```shell
-  docker compose up
-  ```
+    ~~~shell
+    docker compose up
+    ~~~
 
-1. This will bring up
-bring up:
+1. This will bring up:
 
-  ``` text
+  ~~~ text
   IBM Business Automation Manager Open Edition 8.0.1
   PostgreSQL Database with the SQL to create it
   a fake email server - not required
   KIE Sandbox - the new method for editing DMN models and BPMN models
   KIE Extended Services to run DMN models as you make modifications in KIE Sandbox
   GitHub CORS Proxy image to be able to do local GitHub communication with GitHub through CORS
-  ```
+  ~~~
 
 ## Build your own version of the Environment
 

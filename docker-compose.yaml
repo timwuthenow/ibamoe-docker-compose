@@ -6,6 +6,7 @@ services:
     restart: always
     ports:
       - "5432:5432"
+    command: postgres -c config_file=/etc/postgresql.conf
     environment:
        POSTGRES_USER: jbpm
        POSTGRES_PASSWORD: jbpm
@@ -14,6 +15,7 @@ services:
        - ./postgres-data:/var/lib/postgresql/data
 # #       # copy the sql script to create tables
        - ./db/postgresql-jbpm-schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
+       - ./db/postgresql.conf:/etc/postgresql.conf
 #    volumes:
 #      - local_pgdata:/var/lib/postgresql/data
 
