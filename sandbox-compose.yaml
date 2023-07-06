@@ -86,13 +86,13 @@ services:
 
   extended_services:
     container_name: extended_services
-    image: quay.io/bamoe/extended-services-image:latest
+    image: quay.io/bamoe/extended-services:9.0.0
     ports:
       - 21345:21345
     
   
   cors:
-     image: quay.io/bamoe/git-cors-proxy-image:latest
+     image: quay.io/bamoe/git-cors-proxy:9.0.0
      container_name: cors
      ports:
       - 7081:8080
