@@ -21,11 +21,13 @@ services:
 
   ibamoe-8-bc-persistence:
     container_name: bamoe
-    image: ibamoe-8-bc-persistence
+    #image: ibamoe-8-bc-persistence
     #To build your own version of the persistence image, run init-docker.sh in the docker
     # directory after downloading the files required for IBAMOE. Uncomment the next line and comment
     #out line 22
     #image: ibamoe-8-bc-persistence
+    #To pull a version of this from Docker Hub try:
+    image: timwuthenowibm/ibamoe-8-bc-persistence:8.0.3
     ports:
       - "8080:8080"
       - "8001:8001"

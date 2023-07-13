@@ -67,6 +67,8 @@
         <property name="org.appformer.m2repo.url" value="/opt/jboss/.m2/repository"/>
         <property name="kie.maven.settings.custom" value="/opt/jboss/.m2/settings.xml"/>
         <property name="org.uberfire.nio.git.dir" value="/home/jboss/.niogit"/>
+        <property name="org.kie.persistence.postgresql.useBytea" value="true"/>
+        <property name="org.kie.persistence.postgresql.useText" value="true"/>        
         <!-- demo test-->
         <property name="com.deluxedemo.enroll" value="http://host.docker.internal:3000/enrollPayment"/>
         <property name="com.deluxedemo.serviceNow" value="http://host.docker.internal:3000/createServiceNowTicket"/>

@@ -17,7 +17,7 @@ ENV HOME /opt/jboss
 #ENV JBOSS_HOME $HOME/$JBOSS_EAP
 
 # ADD Installation Files
-COPY --chown=jboss:jboss installs/$IBAMOE installs/$IBAMOE_KIE_SERVER installs/$IBAMOE_ADDONS installs/$EAP /opt/jboss/
+COPY --chown=jboss:jboss installs/$IBAMOE installs/$IBAMOE_KIE_SERVER installs/$IBAMOE_ADDONS installs/$EAP installs/$EAP_UPDATES /opt/jboss/
 
 RUN ls -al /opt/jboss
 RUN whoami
@@ -76,6 +76,7 @@ COPY --chown=jboss:jboss support/config.cli /opt/jboss
 # CLI to change Java security logging level - this was done due a HTTP 405 error showing up with a different user ID
 # The ID in the dockerfile typically uses kieserver/kieserver1! but I ended up using bamAdmin to get over 405 error more debugging will be needed
 RUN  /opt/jboss/jboss-eap-7.4/bin/jboss-cli.sh --file="/opt/jboss/config.cli"
+
 COPY --chown=jboss:jboss support/standalone-full.xml /opt/jboss/jboss-eap-7.4/standalone/configuration/
 COPY  --chown=jboss:jboss support/standalone-full.xml /opt/jboss/jboss-eap-7.4/standalone/configuration/standalone.xml
 COPY --chown=jboss:jboss support/userinfo.properties /opt/jboss/jboss-eap-7.4/standalone/deployments/business-central.war/WEB-INF/classes/
@@ -101,6 +102,9 @@ RUN chown jboss:jboss /opt/jboss
 RUN ls -al /opt/jboss/jboss-eap-7.4
 RUN ls -al /opt/jboss/jboss-eap-7.4/standalone
 RUN ls -al /opt/jboss
+
+#RUN /opt/jboss/jboss-eap-7.4/bin/jboss-cli.sh --controller=0.0.0.0:9990 -c "patch apply /opt/jboss/jboss-eap-7.4.11-patch.zip"
+
 USER jboss
 
 # Expose Ports
