@@ -25,34 +25,59 @@ services:
     #To build your own version of the persistence image, run init-docker.sh in the docker
     # directory after downloading the files required for IBAMOE. Uncomment the next line and comment
     #out line 22
-    #image: ibamoe-8-bc-persistence
+    image: ibamoe-8-bc-persistence-test
     #To pull a version of this from Docker Hub try:
-    image: timwuthenowibm/ibamoe-8-bc-persistence:8.0.3
+    #image: timwuthenowibm/ibamoe-8-bc-persistence:8.0.3
     ports:
       - "8080:8080"
       - "8001:8001"
     volumes:
       - ~/.m2/repository:/opt/jboss/.m2/repository
-      - ./bc_git:/home/jboss/.niogit
+#      - ./bc_git:/home/jboss/.niogit:z:rw,U,delegated
     depends_on:
       - db
-  fakesmtp:
-    container_name: fakesmtp
-    image: hatamiarash7/fake-smtp:latest
-    ports:
-      - 25:25
+  fake-smtp:
+    image: munkyboy/fakesmtp
+    container_name: fake-smtp
+    ports: 
+      - "25:25"
     volumes:
-      - ./fakemail:/output
-
+      - ./fake-smtp-emails:/var/mail
+  fake-smtp-web:
+    image: mjstewart/fakesmtp-web:1.3
+    container_name: fake-smtp-web
+    ports: 
+      - "60500:8080"
+    volumes:
+      - ./fake-smtp-emails:/var/mail
+    environment:
+      - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
+    depends_on:
+      - fake-smtp
   bamoe_canvas:
-    container_name: bamoe_canvas
-    image: quay.io/bamoe/canvas:9.0.0
+    container_name: kie_sandbox
+    image: quay.io/bamoe/canvas:9.0.1
+    #image: bamoe-canvas-custom:latest
+    #image: quay.io/kie-tools/kie-sandbox-image:daily-dev
     ports:
       - 9090:8080
     environment:      
        KIE_SANDBOX_REQUIRE_CUSTOM_COMMIT_MESSAGE: true
        KIE_SANDBOX_EXTENDED_SERVICES_URL: http://localhost:21345
-       KIE_SANDBOX_GIT_CORS_PROXY_URL: http://localhost:7081
+       KIE_SANDBOX_CORS_PROXY_URL: http://localhost:7081
+       KIE_SANDBOX_ACCELERATORS: >
+         [
+          {
+            "name": "Quarkus",
+            "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
+            "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
+            "gitRepositoryGitRef": "9.0.0-quarkus-dmn",
+            "dmnDestinationFolder": "src/main/resources/dmn",
+            "bpmnDestinationFolder": "src/main/resources/bpmn",
+            "otherFilesDestinationFolder": "src/main/resources/others"
+          }
+         ]
+  
        KIE_SANDBOX_AUTH_PROVIDERS: > 
            [
             {
@@ -101,7 +126,7 @@ services:
                 "group": "cloud"
             },
             {
-                "enabled": false,
+                "enabled": true,
                 "id": "kubernetes",
                 "type": "openshift",
                 "name": "Kubernetes",
@@ -119,7 +144,8 @@ services:
                 "type": "github",
                 "name": "GitHub Enterprise at IBM",
                 "enabled": true,
-                "group": "git"
+                "group": "git",
+                "insecurelyDisableTlsCertificateValidation": true
             }
            ]
 
@@ -129,14 +155,16 @@ services:
     
 
   kie_extended_services:
-    container_name: bamoe_extended_services
-    image: quay.io/bamoe/extended-services:9.0.0
+    container_name: kie_extended_services
+    image: quay.io/bamoe/extended-services:9.0.1
+    #image: quay.io/kie-tools/kie-sandbox-extended-services-image:daily-dev
     ports:
       - 21345:21345
     
   
   cors:
-     image: quay.io/bamoe/git-cors-proxy:9.0.0
+     #image: quay.io/kie-tools/cors-proxy-image:daily-dev
+     image: quay.io/bamoe/git-cors-proxy:9.0.1
      container_name: cors
      ports:
       - 7081:8080
@@ -147,3 +175,4 @@ services:
 volumes:
   postgres-data:
   pgadmin-data:
+  ibamoe-8-bc-persistence:

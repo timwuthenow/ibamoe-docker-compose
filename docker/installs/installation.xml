@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<AutomatedInstallation langpack="eng">
+    <productName>BAMOE</productName>
+    <productVersion>8.0.4</productVersion>
+    <com.izforge.izpack.panels.HTMLLicencePanel id="HTMLLicencePanel"/>
+    <com.izforge.izpack.panels.TargetPanel id="DirectoryPanel">
+        <installpath>/opt/jboss/jboss-eap-7.4</installpath>
+    </com.izforge.izpack.panels.TargetPanel>
+    <com.izforge.izpack.panels.TreePacksPanel id="TreePacksPanel">
+        <pack index="0" name="Business Central deployment" selected="true"/>
+        <pack index="1" name="KIE Server EAP" selected="true"/>
+        <pack index="2" name="Process Controller JWS" selected="false"/>
+        <pack index="3" name="KIE Server JWS" selected="false"/>
+    </com.izforge.izpack.panels.TreePacksPanel>
+    <com.izforge.izpack.panels.UserInputPanel id="rhpamUser">
+        <userInput>
+            <entry key="rhpam.user" value="bamAdmin"/>
+            <entry autoPrompt="true" key="rhpam.password"/>
+            <entry key="role.administrator" value="true"/>
+            <entry key="role.kieserver" value="true"/>
+            <entry key="role.restall" value="true"/>
+        </userInput>
+    </com.izforge.izpack.panels.UserInputPanel>
+    <com.izforge.izpack.panels.SummaryPanel id="SummaryPanel"/>
+    <com.izforge.izpack.panels.InstallPanel id="InstallPanel"/>
+    <com.izforge.izpack.panels.UserInputPanel id="advanced.config">
+        <userInput>
+            <entry key="advanced.config.selected" value="true"/>
+            <entry key="jdbc.install" value="true"/>
+            <entry key="custom.kie.server.install" value="true"/>
+        </userInput>
+    </com.izforge.izpack.panels.UserInputPanel>
+    <com.izforge.izpack.panels.UserInputPanel id="JDBC Setup Panel">
+        <userInput>
+            <entry key="jdbc.driver.jar-1-path" value="/opt/jboss/postgresql-42.6.0.jar"/>
+            <entry key="jdbc.driver.vendor.name" value="postgresql"/>
+            <entry key="jdbc.driver.name" value="postgresql"/>
+            <entry key="jdbc.driver.module.name" value="org.postgresql"/>
+            <entry key="jdbc.driver.xads.name" value="org.postgresql.xa.PGXADataSource"/>
+            <entry key="jdbc.driver.dir.struct" value="modules/org/postgresql/main"/>
+            <entry key="jdbc.driver.hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+        </userInput>
+    </com.izforge.izpack.panels.UserInputPanel>
+    <com.izforge.izpack.panels.UserInputPanel id="Datasource Configuration Panel">
+        <userInput>
+            <entry key="jdbc.datasource.name" value="psqljBPMXADS"/>
+            <entry key="jdbc.datasource.jndiname" value="java:jboss/PostgresDS"/>
+            <entry key="jdbc.datasource.minpoolsize" value="0"/>
+            <entry key="jdbc.datasource.maxpoolsize" value="200"/>
+            <entry key="jdbc.datasource.username" value="jbpm"/>
+            <entry autoPrompt="true" key="jdbc.datasource.password"/>
+            <entry key="jdbc.datasource.xa" value="Datasource"/>
+            <entry key="jdbc.datasource.connectionurl" value="jdbc:postgresql://local_pgdb:5432/jbpm"/>
+        </userInput>
+    </com.izforge.izpack.panels.UserInputPanel>
+    <com.izforge.izpack.panels.UserInputPanel id="Datasource Configuration Panel"/>
+    <com.izforge.izpack.panels.UserInputPanel id="custom.kie.server">
+        <userInput>
+            <entry key="org.kie.server.id" value="default-kieserver"/>
+            <entry key="org.kie.server.controller" value="http://localhost:8080/business-central/rest/controller"/>
+            <entry key="org.drools.server.ext.disabled" value="false"/>
+            <entry key="org.kie.dmn.server.ext.disabled" value="false"/>
+            <entry key="org.jbpm.server.ext.disabled" value="false"/>
+            <entry key="org.jbpm.ui.server.ext.disabled" value="false"/>
+            <entry key="org.jbpm.case.server.ext.disabled" value="false"/>
+            <entry key="org.kie.swagger.server.ext.disabled" value="false"/>
+            <entry key="org.kie.prometheus.server.ext.disabled" value="false"/>
+            <entry key="org.jbpm.casemgmt.showcase.url" value="/bamoe-case-mgmt-showcase"/>
+        </userInput>
+    </com.izforge.izpack.panels.UserInputPanel>
+    <com.izforge.izpack.panels.ProcessPanel id="ProcessPanel"/>
+    <com.izforge.izpack.panels.FinishPanel id="FinishPanel"/>
+</AutomatedInstallation>
