@@ -22,7 +22,6 @@ services:
   ibamoe-8-bc-persistence:
     container_name: bamoe
     image: ibamoe-8-bc-persistence-804
-    privileged: true
     #To build your own version of the persistence image, run init-docker.sh in the docker
     # directory after downloading the files required for IBAMOE. Uncomment the next line and comment
     #out line 22
@@ -34,7 +33,7 @@ services:
       - "8001:8001"
     volumes:
       - ~/.m2/repository:/opt/jboss/.m2/repository
-     # - "./bc_git:/home/jboss/.niogit"
+      #- ./bc_git:/home/jboss/.niogit
     
 
     depends_on:
@@ -50,7 +49,6 @@ services:
 
   bamoe_canvas:
     container_name: bamoe_canvas
-
     image: quay.io/bamoe/canvas:9.0.0
     ports:
       - 9090:8080
