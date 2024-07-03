@@ -1,36 +1,14 @@
 version: "3.8"
 services:
-  kie_sandbox:
+  canvas:
     container_name: ibm_canvas
-    image: quay.io/bamoe/canvas:9.1.0-ibm-0001
+    image: quay.io/bamoe/canvas:9.0.0
     ports:
       - 9090:8080
     environment:      
        KIE_SANDBOX_REQUIRE_CUSTOM_COMMIT_MESSAGE: true
        KIE_SANDBOX_EXTENDED_SERVICES_URL: http://localhost:21345
-       KIE_SANDBOX_CORS_PROXY_URL: http://localhost:7081
-       KIE_SANDBOX_ACCELERATORS: >
-         [
-          {
-            "name": "Quarkus",
-            "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
-            "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.0-quarkus-dmn",
-            "dmnDestinationFolder": "src/main/resources/dmn",
-            "bpmnDestinationFolder": "src/main/resources/bpmn",
-            "otherFilesDestinationFolder": "src/main/resources/others"
-          },
-                    {
-            "name": "Quarkus",
-            "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
-            "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.0-quarkus-full",
-            "dmnDestinationFolder": "src/main/resources/dmn",
-            "bpmnDestinationFolder": "src/main/resources/bpmn",
-            "otherFilesDestinationFolder": "src/main/resources/others"
-          }
-         ]
-  
+       KIE_SANDBOX_GIT_CORS_PROXY_URL: http://localhost:3000
        KIE_SANDBOX_AUTH_PROVIDERS: > 
            [
             {
@@ -54,7 +32,7 @@ services:
                 ],
                 "type": "gitlab",
                 "name": "GitLab",
-                "enabled": false,
+                "enabled": true,
                 "iconPath": "images/gitlab-logo.svg",
                 "group": "git"
             },
@@ -66,7 +44,7 @@ services:
                 ],
                 "type": "bitbucket",
                 "name": "Bitbucket",
-                "enabled": false,
+                "enabled": true,
                 "iconPath": "images/bitbucket-logo.svg",
                 "group": "git"
             },
@@ -95,28 +73,21 @@ services:
                     "gist.github.ibm.com"
                 ],
                 "type": "github",
-                "name": "GitHub Enterprise at IBM",
+                "name": "GitHub Enterprise",
                 "enabled": true,
-                "group": "git",
-                "insecurelyDisableTlsCertificateValidation": true
+                "group": "git"
             }
            ]
 
     depends_on:
       - extended_services
-      - cors
+
     
 
   extended_services:
     container_name: extended_services
-    image: quay.io/bamoe/extended-services:9.1.0-ibm-0001
+    image: quay.io/bamoe/extended-services:9.0.0
     ports:
       - 21345:21345
     
   
-  cors:
-     image: quay.io/bamoe/cors-proxy:9.1.0-ibm-0001
-     container_name: cors
-     ports:
-      - 7081:8080
-     
