@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <AutomatedInstallation langpack="eng">
     <productName>BAMOE</productName>
-    <productVersion>8.0.4</productVersion>
+    <productVersion>8.0.5</productVersion>
     <com.izforge.izpack.panels.HTMLLicencePanel id="HTMLLicencePanel"/>
     <com.izforge.izpack.panels.TargetPanel id="DirectoryPanel">
         <installpath>/opt/jboss/jboss-eap-7.4</installpath>

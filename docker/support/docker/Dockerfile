@@ -34,7 +34,7 @@ USER root
             && rpm -q unzip tar rsync shadow-utils
 
         # Custom scripts from 'jboss.container.user' module
-        USER jboss
+        #   USER jboss
 
 #RUN chown 185:185 /opt/jboss /opt/jboss/$EAP /opt/jboss/$IBAMOE /opt/jboss/IBAMOE-8.0-KS8.zip /opt/jboss/$IBAMOE_ADDONS
 
@@ -81,13 +81,13 @@ RUN chown jboss:jboss /opt/jboss/jboss-eap-7.4/standalone/configuration
 # CLI to change Java security logging level - this was done due a HTTP 405 error showing up with a different user ID
 # The ID in the dockerfile typically uses kieserver/kieserver1! but I ended up using bamAdmin to get over 405 error more debugging will be needed
 
-
-RUN cat /opt/jboss/installation.xml
-RUN java -jar /opt/jboss/bamoe-installer-8.0.4.jar /opt/jboss/installation.xml
-
-RUN unzip -qo /opt/jboss/case-management.zip -d /opt/jboss/jboss-eap-7.4/standalone/deployments
-
 RUN  /opt/jboss/jboss-eap-7.4/bin/jboss-cli.sh --file="/opt/jboss/config.cli"
+RUN cat /opt/jboss/installation.xml
+RUN java -jar /opt/jboss/bamoe-installer-8.0.5.jar /opt/jboss/installation.xml
+
+#RUN unzip -qo /opt/jboss/case-management.zip -d /opt/jboss/jboss-eap-7.4/standalone/deployments
+
+
 #COPY --chown=jboss:jboss support/standalone-full.xml /opt/jboss/jboss-eap-7.4/standalone/configuration/
 #COPY  --chown=jboss:jboss support/standalone-full.xml /opt/jboss/jboss-eap-7.4/standalone/configuration/standalone.xml
 #COPY --chown=jboss:jboss support/userinfo.properties /opt/jboss/jboss-eap-7.4/standalone/deployments/business-central.war/WEB-INF/classes/
@@ -119,7 +119,9 @@ RUN ls -al /opt/jboss
 
 RUN mkdir /home/jboss/.niogit
 RUN chown jboss:jboss /home/jboss/.niogit
-USER jboss
+RUN rm -rf  /opt/jboss/jboss-eap-7.4/standalone/configuration/standalone_xml_history/current
+
+#USER jboss
 # Expose Ports
 EXPOSE 9990 9999 8080
 

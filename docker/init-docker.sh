@@ -85,7 +85,7 @@ cp support/docker/.dockerignore .
 echo Starting Docker build.
 echo
 
-podman build --no-cache -t $DOCKERNAME --build-arg VERSION=$VERSION --build-arg IBAMOE=bamoe-$VERSION-business-central-eap7-deployable.zip --build-arg IBAMOE_KIE_SERVER=$IBAMOE_KIE_SERVER --build-arg EAP=$EAP --build-arg JBOSS_EAP=$JBOSS_EAP --build-arg EAP_UPDATES=$EAP_UPDATES .
+docker build --no-cache -t $DOCKERNAME --build-arg VERSION=$VERSION --build-arg IBAMOE=bamoe-$VERSION-business-central-eap7-deployable.zip --build-arg IBAMOE_KIE_SERVER=$IBAMOE_KIE_SERVER --build-arg EAP=$EAP --build-arg JBOSS_EAP=$JBOSS_EAP --build-arg EAP_UPDATES=$EAP_UPDATES  --progress=plain .
 
 if [ $? -ne 0 ]; then
         echo
