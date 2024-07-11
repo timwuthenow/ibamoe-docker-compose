@@ -15,7 +15,7 @@ services:
             "name": "Quarkus",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.0-quarkus-dmn",
+            "gitRepositoryGitRef": "9.1.1-bamoe-0001-quarkus-dmn",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
@@ -24,7 +24,7 @@ services:
             "name": "Quarkus",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.0-quarkus-full",
+            "gitRepositoryGitRef": "9.1.1-bamoe-0001-quarkus-full",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
