@@ -1,0 +1,195 @@
+version: "3.8"
+services:
+  db:
+    image: postgres
+    container_name: local_pgdb
+    restart: always
+    ports:
+      - "5432:5432"
+    command: postgres -c config_file=/etc/postgresql.conf
+    environment:
+       POSTGRES_USER: jbpm
+       POSTGRES_PASSWORD: jbpm
+       PGDATA: /data/postgres
+    volumes:
+       - ./postgres-data:/var/lib/postgresql/data
+# #       # copy the sql script to create tables
+       - ./db/postgresql-jbpm-schema.sql:/docker-entrypoint-initdb.d/create_tables.sql
+       - ./db/postgresql.conf:/etc/postgresql.conf
+#    volumes:
+#      - local_pgdata:/var/lib/postgresql/data
+
+  ibamoe-8-bc-demo:
+    container_name: bamoe-demo
+    image: timwuthenow/bamoe:latest
+    #To build your own version of the persistence image, run init-docker.sh in the docker
+    # directory after downloading the files required for IBAMOE. Uncomment the next line and comment
+    #out line 22
+    #image: ibamoe-8-bc-persistence
+    #To pull a version of this from Docker Hub try:
+    #image: timwuthenowibm/ibamoe-8-bc-persistence-8.0.3
+    ports:
+      - "8080:8080"
+      - "8001:8001"
+    volumes:
+      - ~/.m2/repository:/opt/jboss/.m2/repository
+      #- ./bc_git:/home/jboss/.niogit
+    
+
+    depends_on:
+      - db
+      - fakesmtp
+  fakesmtp:
+    image: munkyboy/fakesmtp
+    container_name: fakesmtp
+    ports: 
+      - "25:25"
+    volumes:
+      - ~/fake-smtp-emails:/var/mail
+  fake-smtp-web:
+    image: mjstewart/fakesmtp-web:1.3
+    container_name: fake-smtp-web
+    ports: 
+      - "60500:8080"
+    volumes:
+      - ~/fake-smtp-emails:/var/mail
+    environment:
+      - EMAIL_INPUT_DIR_POLL_RATE_SECONDS=10
+    depends_on:
+      - fakesmtp
+
+  
+  kie_sandbox:
+    container_name: ibm_canvas
+    image: quay.io/bamoe/canvas:9.1.0-ibm-0001
+    ports:
+      - 9090:8080
+    environment:      
+       KIE_SANDBOX_REQUIRE_CUSTOM_COMMIT_MESSAGE: true
+       KIE_SANDBOX_EXTENDED_SERVICES_URL: http://localhost:21345
+       KIE_SANDBOX_CORS_PROXY_URL: http://localhost:7081
+       KIE_SANDBOX_ACCELERATORS: >
+         [
+          {
+            "name": "Quarkus",
+            "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
+            "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
+            "gitRepositoryGitRef": "9.1.1-bamoe-0001-quarkus-dmn",
+            "dmnDestinationFolder": "src/main/resources/dmn",
+            "bpmnDestinationFolder": "src/main/resources/bpmn",
+            "otherFilesDestinationFolder": "src/main/resources/others"
+          },
+                    {
+            "name": "Quarkus",
+            "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
+            "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
+            "gitRepositoryGitRef": "9.1.1-bamoe-0001-quarkus-full",
+            "dmnDestinationFolder": "src/main/resources/dmn",
+            "bpmnDestinationFolder": "src/main/resources/bpmn",
+            "otherFilesDestinationFolder": "src/main/resources/others"
+          }
+         ]
+  
+       KIE_SANDBOX_AUTH_PROVIDERS: > 
+           [
+            {
+                "id": "github_dot_com",
+                "domain": "github.com",
+                "supportedGitRemoteDomains": [
+                    "github.com",
+                    "gist.github.com"
+                ],
+                "type": "github",
+                "name": "GitHub",
+                "enabled": true,
+                "iconPath": "",
+                "group": "git"
+            },
+            {
+                "id": "gitlab_dot_com",
+                "domain": "gitlab.com",
+                "supportedGitRemoteDomains": [
+                    "gitlab.com"
+                ],
+                "type": "gitlab",
+                "name": "GitLab",
+                "enabled": true,
+                "iconPath": "images/gitlab-logo.svg",
+                "group": "git"
+            },
+            {
+                "id": "bitbucket_dot_com",
+                "domain": "bitbucket.com",
+                "supportedGitRemoteDomains": [
+                    "bitbucket.com"
+                ],
+                "type": "bitbucket",
+                "name": "Bitbucket",
+                "enabled": true,
+                "iconPath": "images/bitbucket-logo.svg",
+                "group": "git"
+            },
+            {
+                "enabled": true,
+                "id": "openshift",
+                "type": "openshift",
+                "name": "OpenShift",
+                "iconPath": "images/openshift-logo.svg",
+                "group": "cloud"
+            },
+            {
+                "enabled": true,
+                "id": "kubernetes",
+                "type": "openshift",
+                "name": "Kubernetes",
+                "iconPath": "images/kubernetes-logo.svg",
+                "group": "cloud"
+            }
+            ,
+            {
+                "id": "GitHub_at_IBM",
+                "domain": "github.ibm.com",
+                "supportedGitRemoteDomains": [
+                    "github.ibm.com",
+                    "gist.github.ibm.com"
+                ],
+                "type": "github",
+                "name": "GitHub Enterprise",
+                "enabled": true,
+                "group": "git",
+                "insecurelyDisableTlsCertificateValidation": true
+            }
+           ]
+
+    depends_on:
+      - extended_services
+      - cors
+    
+
+  extended_services:
+    container_name: extended_services
+    image: quay.io/bamoe/extended-services:9.1.0-ibm-0001
+    ports:
+      - 21345:21345
+    
+  
+  cors:
+     image: quay.io/bamoe/cors-proxy:9.1.0-ibm-0001
+     container_name: cors
+     ports:
+      - 7081:8080
+  maven:
+     image: quay.io/bamoe/maven-repository:9.1.0-ibm-0001
+     container_name: maven-repository
+     ports:
+      - 31000:80
+
+  enrollment-service:
+    container_name: enrollment-service
+    image: timwuthenow/enrollment-service:latest
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres-data:
+  pgadmin-data:
