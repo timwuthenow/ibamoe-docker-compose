@@ -12,19 +12,19 @@ services:
        KIE_SANDBOX_ACCELERATORS: >
          [
           {
-            "name": "Quarkus",
+            "name": "Kogito Powered DMN",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.1-bamoe-0001-quarkus-dmn",
+            "gitRepositoryGitRef": "9.1.1-ibm-0001-quarkus-dmn",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
           },
                     {
-            "name": "Quarkus",
+            "name": "Kogito Powered jBPM",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.1-bamoe-0001-quarkus-full",
+            "gitRepositoryGitRef": "9.1.1-ibm-0001-quarkus-full",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
