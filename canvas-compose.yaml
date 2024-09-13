@@ -2,7 +2,8 @@ version: "3.8"
 services:
   kie_sandbox:
     container_name: ibm_canvas
-    image: quay.io/bamoe/canvas:9.1.0-ibm-0001
+    image: quay.io/bamoe/canvas:9.1.1-ibm-0002
+    platform: linux/amd64
     ports:
       - 9090:8080
     environment:      
@@ -12,19 +13,28 @@ services:
        KIE_SANDBOX_ACCELERATORS: >
          [
           {
-            "name": "Kogito Powered DMN",
+            "name": "Quarkus",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.1-ibm-0001-quarkus-dmn",
+            "gitRepositoryGitRef": "9.1.1-bamoe-0002-quarkus-dmn",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
           },
                     {
-            "name": "Kogito Powered jBPM",
+            "name": "Quarkus",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.1-ibm-0001-quarkus-full",
+            "gitRepositoryGitRef": "9.1.1-ibm-0002-quarkus-full",
+            "dmnDestinationFolder": "src/main/resources/dmn",
+            "bpmnDestinationFolder": "src/main/resources/bpmn",
+            "otherFilesDestinationFolder": "src/main/resources/others"
+          },
+                              {
+            "name": "Techxchange Kogito jBPM Profile",
+            "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
+            "gitRepositoryUrl": "https://github.com/timwuthenow/bamoe-canvas-quarkus-accelerator.git",
+            "gitRepositoryGitRef": "techxchange",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
@@ -109,18 +119,21 @@ services:
 
   extended_services:
     container_name: extended_services
-    image: quay.io/bamoe/extended-services:9.1.0-ibm-0001
+    platform: linux/amd64
+    image: quay.io/bamoe/extended-services:9.1.1-ibm-0002
     ports:
       - 21345:21345
     
   
   cors:
-     image: quay.io/bamoe/cors-proxy:9.1.0-ibm-0001
+     image: quay.io/bamoe/cors-proxy:9.1.1-ibm-0002
+     platform: linux/amd64
      container_name: cors
      ports:
       - 7081:8080
   maven:
-     image: quay.io/bamoe/maven-repository:9.1.0-ibm-0001
+     image: quay.io/bamoe/maven-repository:9.1.1-ibm-0002
+     platform: linux/amd64
      container_name: maven-repository
      ports:
-      - 31000:80
+      - 31000:8080
