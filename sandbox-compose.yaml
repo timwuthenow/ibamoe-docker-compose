@@ -16,7 +16,7 @@ services:
        KIE_SANDBOX_ACCELERATORS: >
          [
           {
-            "name": "Quarkus",
+            "name": "Quarkus Decisions powered by Kogito",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
             "gitRepositoryGitRef": "9.1.1-bamoe-0002-quarkus-dmn",
@@ -25,7 +25,7 @@ services:
             "otherFilesDestinationFolder": "src/main/resources/others"
           },
                     {
-            "name": "Quarkus",
+            "name": "Quarkus Process powered by Kogito",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
             "gitRepositoryGitRef": "9.1.1-ibm-0002-quarkus-full",
