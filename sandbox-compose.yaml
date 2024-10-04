@@ -2,8 +2,8 @@ version: "3.8"
 services:
   kie_sandbox:
     container_name: ibm_canvas
-    image: timwuthenow/bamoe-9.1.1-canvas-image:latest
-    #image: quay.io/bamoe/canvas:9.1.1-ibm-0002
+    #image: timwuthenow/bamoe-9.1.1-canvas-image:latest
+    image: quay.io/bamoe/canvas:9.1.1-ibm-0003
     platform: linux/amd64
     ports:
       - 9090:8080
@@ -20,7 +20,7 @@ services:
             "name": "Quarkus Decisions powered by Kogito",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.1-bamoe-0002-quarkus-dmn",
+            "gitRepositoryGitRef": "9.1.1-bamoe-0003-quarkus-dmn",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
@@ -29,7 +29,7 @@ services:
             "name": "Quarkus Process powered by Kogito",
             "iconUrl": "https://github.com/kiegroup/kie-sandbox-quarkus-accelerator/raw/0.0.0/quarkus-logo.png",
             "gitRepositoryUrl": "https://github.com/ibm/bamoe-canvas-quarkus-accelerator",
-            "gitRepositoryGitRef": "9.1.1-ibm-0002-quarkus-full",
+            "gitRepositoryGitRef": "9.1.1-ibm-0003-quarkus-full",
             "dmnDestinationFolder": "src/main/resources/dmn",
             "bpmnDestinationFolder": "src/main/resources/bpmn",
             "otherFilesDestinationFolder": "src/main/resources/others"
@@ -124,21 +124,22 @@ services:
   extended_services:
     container_name: extended_services
     platform: linux/amd64
-    image: timwuthenow/bamoe-9.1.1-extended-services-image:latest
-    #image: quay.io/bamoe/extended-services:9.1.1-ibm-0002
+    #image: timwuthenow/bamoe-9.1.1-extended-services-image:latest
+    image: quay.io/bamoe/extended-services:9.1.1-ibm-0003
     ports:
       - 21345:21345
     
   
   cors:
-     image: timwuthenow/bamoe-9.1.1-cors-proxy-image:latest
-     #image: quay.io/bamoe/cors-proxy:9.1.1-ibm-0002
+     #image: timwuthenow/bamoe-9.1.1-cors-proxy-image:latest
+     image: quay.io/bamoe/cors-proxy:9.1.1-ibm-0003
      platform: linux/amd64
      container_name: cors
      ports:
       - 7081:8080
   maven:
-     image: timwuthenow/bamoe-9.1.1-maven-repository-image:latest
+     #image: timwuthenow/bamoe-9.1.1-maven-repository-image:latest
+     image: quay.io/bamoe/maven-repository:9.1.1-ibm-0003
      platform: linux/amd64
      container_name: maven-repository
      ports:
