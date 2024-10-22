@@ -2,8 +2,8 @@ version: "3.8"
 services:
   kie_sandbox:
     container_name: ibm_canvas
-    image: timwuthenow/bamoe-9.1.1-canvas-image:latest
-    #image: quay.io/bamoe/canvas:9.1.1-ibm-0002
+    #image: timwuthenow/bamoe-9.1.1-canvas-image:latest
+    image: quay.io/bamoe/canvas:9.1.1-ibm-0003
     platform: linux/amd64
     ports:
       - 9090:8080
@@ -124,21 +124,22 @@ services:
   extended_services:
     container_name: extended_services
     platform: linux/amd64
-    image: timwuthenow/bamoe-9.1.1-extended-services-image:latest
-    #image: quay.io/bamoe/extended-services:9.1.1-ibm-0002
+    #image: timwuthenow/bamoe-9.1.1-extended-services-image:latest
+    image: quay.io/bamoe/extended-services:9.1.1-ibm-0003
     ports:
       - 21345:21345
     
   
   cors:
-     image: timwuthenow/bamoe-9.1.1-cors-proxy-image:latest
-     #image: quay.io/bamoe/cors-proxy:9.1.1-ibm-0002
+     #image: timwuthenow/bamoe-9.1.1-cors-proxy-image:latest
+     image: quay.io/bamoe/cors-proxy:9.1.1-ibm-0003
      platform: linux/amd64
      container_name: cors
      ports:
       - 7081:8080
   maven:
-     image: timwuthenow/bamoe-9.1.1-maven-repository-image:latest
+     #image: timwuthenow/bamoe-9.1.1-maven-repository-image:latest
+     image: quay.io/bamoe/maven-repository:9.1.1-ibm-0003
      platform: linux/amd64
      container_name: maven-repository
      ports:
